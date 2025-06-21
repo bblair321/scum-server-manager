@@ -5,14 +5,24 @@ const path = require('path');
 const app = express();
 const port = 5000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// API Routes
 app.use('/api/server', require('./routes/server'));
 app.use('/api/config', require('./routes/config'));
 app.use('/api/players', require('./routes/players'));
 
-app.listen(port, () => {
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Fallback route for React (must come AFTER API routes and static middleware)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+// Start server
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server Manager API running on port ${port}`);
 });
