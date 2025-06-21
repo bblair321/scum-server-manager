@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styles from './ConfigEditor.module.css';
 
 export default function ConfigEditor({ filename = 'ServerSettings.ini' }) {
   const [config, setConfig] = useState(null);
@@ -50,26 +51,29 @@ export default function ConfigEditor({ filename = 'ServerSettings.ini' }) {
   if (!config) return <div>No config loaded.</div>;
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className={styles.container}>
       <h2>Editing {filename}</h2>
       {Object.entries(config).map(([section, pairs]) => (
-        <div key={section} style={{ marginBottom: 20 }}>
-          <h3>{section}</h3>
+        <div key={section} className={styles.section}>
+          <h3 className={styles.sectionTitle}>{section}</h3>
           {Object.entries(pairs).map(([key, value]) => (
-            <div key={key} style={{ marginBottom: 8 }}>
-              <label>
-                {key}:{' '}
+            <div key={key} className={styles.field}>
+              <label className={styles.label}>
+                {key}:
                 <input
                   type="text"
                   value={value}
                   onChange={(e) => handleChange(section, key, e.target.value)}
+                  className={styles.input}
                 />
               </label>
             </div>
           ))}
         </div>
       ))}
-      <button onClick={handleSave}>Save Config</button>
+      <button onClick={handleSave} className={styles.saveButton}>
+        Save Config
+      </button>
     </div>
   );
 }

@@ -1,0 +1,9 @@
+.container {
+  padding: 20px;
+}
+
+.selectLabel {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-weight: 500;
+}

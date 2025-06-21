@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import ConfigEditor from './components/ConfigEditor';
 import ServerControls from './components/ServerControls';
-
+import PlayerList from './components/PlayerList';
+import ServerPath from './components/ServerPath';
+import styles from './App.module.css';
 
 function App() {
   const [filename, setFilename] = useState('ServerSettings.ini');
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className={styles.container}>
       <h1>SCUM Server Manager</h1>
 
-      <label>
+      <label className={styles.selectLabel}>
         Select config file:&nbsp;
         <select value={filename} onChange={(e) => setFilename(e.target.value)}>
           <option value="ServerSettings.ini">ServerSettings.ini</option>
@@ -20,6 +22,8 @@ function App() {
 
       <ConfigEditor filename={filename} />
       <ServerControls />
+      <PlayerList />
+      <ServerPath />
     </div>
   );
 }

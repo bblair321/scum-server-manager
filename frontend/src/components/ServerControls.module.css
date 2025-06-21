@@ -1,0 +1,16 @@
+.container {
+  margin-top: 20px;
+}
+
+.button {
+  margin-right: 10px;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  margin-top: 8px;
+}
