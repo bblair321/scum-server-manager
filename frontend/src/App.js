@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import ConfigEditor from './components/ConfigEditor';
+import ServerControls from './components/ServerControls';
+
 
 function App() {
   const [filename, setFilename] = useState('ServerSettings.ini');
@@ -17,6 +19,7 @@ function App() {
       </label>
 
       <ConfigEditor filename={filename} />
+      <ServerControls />
     </div>
   );
 }
