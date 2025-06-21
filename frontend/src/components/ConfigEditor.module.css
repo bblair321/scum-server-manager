@@ -1,33 +1,74 @@
 .container {
-  padding: 20px;
+  background-color: var(--card-bg, #1e1e2f);
+  padding: 24px 30px;
+  border-radius: 18px;
+  box-shadow: 0 8px 16px rgba(0, 208, 132, 0.15);
+  max-width: 750px;
+  margin: 30px auto;
+  color: var(--text-color, #f0f0f0);
+  user-select: none;
 }
 
 .section {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #2a2a40;
+  padding-bottom: 20px;
 }
 
 .sectionTitle {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: var(--primary-color, #00d084);
+  user-select: text;
 }
 
 .field {
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 .label {
-  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ccc;
+  user-select: text;
 }
 
 .input {
-  margin-left: 6px;
-  padding: 4px 8px;
+  flex-grow: 1;
+  margin-left: 12px;
+  padding: 8px 14px;
+  background-color: #292a40;
+  border: 1.5px solid #3e3f5e;
+  border-radius: 8px;
+  color: #eee;
   font-size: 1rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  user-select: text;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color, #00d084);
+  box-shadow: 0 0 6px var(--primary-color, #00d084);
 }
 
 .saveButton {
-  margin-top: 15px;
-  padding: 8px 16px;
-  font-size: 1rem;
+  background: linear-gradient(90deg, #00d084, #00b568);
+  border: none;
+  border-radius: 20px;
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding: 12px 36px;
   cursor: pointer;
+  transition: background 0.3s ease;
+  user-select: none;
+}
+
+.saveButton:hover {
+  background: linear-gradient(90deg, #00b568, #009a4a);
 }

@@ -8,7 +8,7 @@ let serverProcess = null;
 
 // Helper to get saved SCUM server path
 function getServerPath() {
-  const configPath = path.join(__dirname, '../config/server-path.json');
+  const configPath = path.join(process.cwd(), 'server-path.json');
   if (fs.existsSync(configPath)) {
     try {
       const raw = fs.readFileSync(configPath, 'utf-8');
@@ -23,24 +23,31 @@ function getServerPath() {
 
 // Start SCUM server
 router.post('/start', (req, res) => {
+  console.log('POST /start called');
+
   if (serverProcess) {
+    console.log('Server is already running');
     return res.status(400).json({ error: 'Server is already running.' });
   }
 
   const serverPath = getServerPath();
+  console.log('Configured server path:', serverPath);
+
   if (!serverPath || !fs.existsSync(serverPath)) {
+    console.log('Invalid server path');
     return res.status(400).json({ error: 'Invalid server path.' });
   }
 
   const command = `start "" "${serverPath}"`;
 
-  serverProcess = exec(command, (err) => {
+  const child = exec(command, (err) => {
     if (err) {
       console.error('Failed to start server:', err);
-      return res.status(500).json({ error: 'Failed to start server.' });
+      serverProcess = null;
     }
   });
 
+  serverProcess = child;
   res.json({ status: 'Server starting...' });
 });
 
@@ -72,7 +79,7 @@ router.get('/status', (req, res) => {
 // Get current server path
 router.get('/path', (req, res) => {
   try {
-    const configPath = path.join(__dirname, '../config/server-path.json');
+    const configPath = path.join(process.cwd(), 'server-path.json');
     const data = fs.readFileSync(configPath, 'utf-8');
     res.json(JSON.parse(data));
   } catch (err) {
@@ -84,7 +91,7 @@ router.get('/path', (req, res) => {
 router.post('/path', (req, res) => {
   try {
     const { path: newPath } = req.body;
-    const configPath = path.join(__dirname, '../config/server-path.json');
+    const configPath = path.join(process.cwd(), 'server-path.json'); // ✅ CORRECT
     fs.writeFileSync(configPath, JSON.stringify({ path: newPath }, null, 2));
     res.json({ status: 'Saved.' });
   } catch (err) {

@@ -18,19 +18,39 @@ export default function ServerControls() {
       });
   };
 
-  const startServer = () => {
-    fetch('http://localhost:5000/api/server/start', { method: 'POST' })
-      .then(res => res.json())
-      .then(() => fetchStatus())
-      .catch(err => setError(err.message));
-  };
+const startServer = () => {
+  fetch('http://localhost:5000/api/server/start', { method: 'POST' })
+    .then(async (res) => {
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || 'Failed to start server');
+      }
+      return res.json();
+    })
+    .then(() => {
+      setError(null);
+      fetchStatus();
+    })
+    .catch((err) => setError(err.message));
+};
 
-  const stopServer = () => {
-    fetch('http://localhost:5000/api/server/stop', { method: 'POST' })
-      .then(res => res.json())
-      .then(() => fetchStatus())
-      .catch(err => setError(err.message));
-  };
+
+const stopServer = () => {
+  fetch('http://localhost:5000/api/server/stop', { method: 'POST' })
+    .then(async (res) => {
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || 'Failed to stop server');
+      }
+      return res.json();
+    })
+    .then(() => {
+      setError(null);
+      fetchStatus();
+    })
+    .catch((err) => setError(err.message));
+};
+
 
   useEffect(() => {
     fetchStatus();
