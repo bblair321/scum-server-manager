@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ConfigEditor from './components/ConfigEditor';
 import ServerControls from './components/ServerControls';
-import PlayerList from './components/PlayerList';
 import ServerPath from './components/ServerPath';
 import styles from './App.module.css';
 
@@ -22,7 +21,6 @@ function App() {
 
       <ConfigEditor filename={filename} />
       <ServerControls />
-      <PlayerList />
       <ServerPath />
     </div>
   );
