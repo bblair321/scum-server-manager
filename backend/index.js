@@ -12,17 +12,16 @@ app.use(express.json());
 // API Routes
 app.use('/api/server', require('./routes/server'));
 app.use('/api/config', require('./routes/config'));
-app.use('/api/players', require('./routes/players'));
 
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Fallback route for React (must come AFTER API routes and static middleware)
+// React fallback route (must be last)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// Start server
+// Start backend server
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Server Manager API running on port ${port}`);
+  console.log(`✅ Server Manager API running on http://localhost:${port}`);
 });
